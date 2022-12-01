@@ -2,13 +2,11 @@ import { useEffect, useState } from "preact/hooks";
 import preactLogo from "./assets/preact.svg";
 import "./app.css";
 import useNotification from "./hooks/useNotification";
-import useTimers from "./hooks/useTimers";
 import Timer from "./components/Timer";
 
 export function App() {
   const { permission, requestPermission } = useNotification();
-
-  const { timers, addTimer, updateTimer, startTimer, pauseTimer } = useTimers();
+  const [timerCount, setTimerCount] = useState(1);
 
   return (
     <>
@@ -22,14 +20,12 @@ export function App() {
         </div>
       ) : (
         <>
-          {timers.map((timer, idx) => (
-            <Timer
-              {...timer}
-              onUpdate={(timer) => updateTimer(idx, timer)}
-              onStart={() => startTimer(idx)}
-              onPause={() => pauseTimer(idx)}
-            />
+          {[...Array(timerCount)].map((_) => (
+            <Timer />
           ))}
+          <button onClick={() => setTimerCount((count) => count + 1)}>
+            <i className="fa-regular fa-plus"></i> New Timer
+          </button>
         </>
       )}
     </>
