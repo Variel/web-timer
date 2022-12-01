@@ -1,0 +1,11 @@
+.timer {
+  padding: 2em;
+  border-radius: 1em;
+  background: #2b2b2b;
+}
+
+@media (prefers-color-scheme: light) {
+  .timer {
+    background-color: #f7f7f7;
+  }
+}
