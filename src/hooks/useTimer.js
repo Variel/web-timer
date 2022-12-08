@@ -1,4 +1,5 @@
 import { useState, useCallback } from "preact/hooks";
+import padNumber from "../helpers/padNumber";
 
 const useTimer = () => {
   const [timer, setTimer] = useState({
@@ -82,8 +83,28 @@ const useTimer = () => {
     }));
   }, []);
 
+  let remaining = (timer.duration - timer.elapsedTime) / 100;
+  let subseconds = Math.floor(remaining % 10);
+  remaining /= 10;
+  let seconds = Math.floor(remaining % 60);
+  remaining /= 60;
+  let minutes = Math.floor(remaining % 60);
+  remaining /= 60;
+  let hours = Math.floor(remaining);
+  const display = `${padNumber(hours, 2)}h ${padNumber(
+    minutes,
+    2
+  )}m ${padNumber(seconds, 2)}.${subseconds}s`;
+
   return {
     timer,
+    remaining: {
+      hours,
+      minutes,
+      seconds,
+      subseconds,
+      display,
+    },
     updateName,
     updateDuration,
     startTimer,

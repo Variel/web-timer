@@ -21,7 +21,9 @@ export function App() {
       ) : (
         <>
           {[...Array(timerCount)].map((_) => (
-            <Timer />
+            <div className="timer-wrap">
+              <Timer />
+            </div>
           ))}
           <button onClick={() => setTimerCount((count) => count + 1)}>
             <i className="fa-regular fa-plus"></i> New Timer
